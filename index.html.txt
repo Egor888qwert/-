@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЧАЙФОНИ — Интернет-магазин премиального чая</title>
+    <style>
+        /* Премиальная палитра: Светлый нефрит, Бамбук, Золотой чайный и Чернила */
+        :root {
+            --bg-jade: #f4f6f3; 
+            --primary-bamboo: #6b7f6c; 
+            --accent-tea: #8c7662; 
+            --text-ink: #2b302c; 
+            --white-paper: #ffffff;
+            --shadow: rgba(107, 127, 108, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Georgia', serif;
+            color: var(--text-ink);
+        }
+
+        body {
+            background-color: var(--bg-jade);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        header {
+            background: var(--white-paper);
+            border-bottom: 1px solid rgba(107, 127, 108, 0.2);
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .logo-area h1 {
+            font-size: 32px;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--primary-bamboo);
+            font-weight: 400;
+        }
+
+        .logo-area p {
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            opacity: 0.7;
+            margin-top: 8px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 1px solid var(--primary-bamboo);
+            padding: 10px 22px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 13px;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--primary-bamboo);
+            color: var(--white-paper);
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 2.8fr 1.2fr;
+            gap: 40px;
+        }
+
+        .tea-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .tea-card {
+            background: var(--white-paper);
+            border-radius: 4px;
+            padding: 25px;
+            box-shadow: 0 4px 15px var(--shadow);
+            border: 1px solid rgba(107, 127, 108, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s;
+        }
+
+        .tea-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .tea-tag {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--primary-bamboo);
+            margin-bottom: 12px;
+            display: inline-block;
+            font-weight: bold;
+        }
+
+        .tea-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .tea-desc {
+            font-size: 13px;
+            opacity: 0.75;
+            margin-bottom: 20px;
+        }
+
+        .tea-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(107, 127, 108, 0.1);
+            padding-top: 15px;
+        }
+
+        .tea-price {
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--accent-tea);
+        }
+
+        .btn {
+            background: var(--primary-bamboo);
+            color: var(--white-paper);
+            border: none;
+            padding: 10px 18px;
+            font-size: 13px;
+            cursor: pointer;
+            border-radius: 2px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background: #566857;
+        }
+
+        .sidebar-panel {
+            background: var(--white-paper);
+            border-radius: 4px;
+            padding: 25px;
+            box-shadow: 0 4px 15px var(--shadow);
+            border: 1px solid rgba(107, 127, 108, 0.1);
+            margin-bottom: 25px;
+        }
+
+        .panel-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: var(--accent-tea);
+            border-bottom: 1px solid rgba(107, 127, 108, 0.1);
+            padding-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .cart-total {
+            font-size: 16px;
+            font-weight: bold;
+            text-align: right;
+            margin-top: 15px;
+            border-top: 1px solid rgba(107, 127, 108, 0.1);
+            padding-top: 12px;
+        }
+
+        /* Форма заказа и оплаты */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid rgba(107, 127, 108, 0.3);
+            border-radius: 2px;
+            background: var(--bg-jade);
+            font-size: 14px;
+        }
+
+        .form-control:focus {
+            outline: 1px solid var(--primary-bamboo);
+        }
+
+        .pay-btn {
+            display: block;
+            width: 100%;
+            background: var(--accent-tea);
+            color: var(--white-paper);
+            text-align: center;
+            padding: 14px;
+            border: none;
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .pay-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 900px) {
+            .layout { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-area">
+            <h1>Чайфони</h1>
+            <p>Поймай свой чайный кайф</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="filters">
+            <button class="filter-btn active" onclick="filterTea('all')">Все меню</button>
+            <button class="filter-btn" onclick="filterTea('energy')">Энергия и Фокус</button>
+            <button class="filter-btn" onclick="filterTea('relax')">Релакс и Чилл</button>
+            <button class="filter-btn" onclick="filterTea('taste')">Яркие купажи</button>
+        </div>
+
+        <div class="layout">
+            <!-- Витрина -->
+            <main class="tea-grid" id="teaContainer"></main>
+
+            <!-- Оформление -->
+            <aside>
+                <!-- Корзина -->
+                <div class="sidebar-panel">
+                    <div class="panel-title">Ваша пиала</div>
+                    <div id="cartItems">
+                        <p style="opacity: 0.5; font-size: 13px;">Тут пока пусто...</p>
+                    </div>
+                    <div class="cart-total" id="cartTotal">Итого: 0 ₽</div>
+                </div>
+
+                <!-- Касса и Доставка -->
+                <div class="sidebar-panel">
+                    <div class="panel-title">Оплата и доставка</div>
+                    <form id="checkoutForm" onsubmit="processOrder(event)">
+                        <div class="form-group">
+                            <label>Ваше Имя</label>
+                            <input type="text" id="custName" class="form-control" required disabled>
+                        </div>
+                        <div class="form-group">
+                            <label>Телефон</label>
+                            <input type="tel" id="custPhone" class="form-control" placeholder="+7 (___) ___-__-__" required disabled>
+                        </div>
+                        <div class="form-group">
+                            <label>Адрес доставки</label>
+                            <input type="text" id="custAddress" class="form-control" placeholder="Город, улица, дом, квартира" required disabled>
+                        </div>
+                        
+                        <!-- Скрытые поля для интеграции ЮKassa -->
+                        <input type="hidden" name="shopId" value="YOUR_SHOP_ID_HERE">
+                        <input type="hidden" name="scid" value="YOUR_SCID_HERE">
+                        <input type="hidden" id="paymentSum" name="sum" value="0">
+                        
+                        <button type="submit" id="payButton" class="pay-btn" disabled>Оплатить через СБП / Карту</button>
+                    </form>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <script>
+        // Данные премиального ассортимента "Чайфони"
+        const teaData = [
+            { id: 1, name: "Старый Мэнхай (Шу Пуэр)", cat: "energy", desc: "Плотный, глубокий древесно-ореховый вкус. Мощный заряд энергии.", price: 2400 },
+            { id: 2, name: "Да Хун Пао (Высший Сорт)", cat: "energy", desc: "Легендарный огненный улун с пряным ароматом и нотами дыма.", price: 3100 },
+            { id: 3, name: "Габа Алишань (Янтарная)", cat: "relax", desc: "Элитный чай с ГАМК. Тотальное снятие стресса при полной ясности ума.", price: 4500 },
